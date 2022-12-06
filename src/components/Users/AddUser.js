@@ -4,13 +4,15 @@ import styles from './AddUser.module.css'
 import Button from "../UI/Button";
 
 
-const AddUser = () => {
+const AddUser = props => {
     const [enteredUsername, setEnteredUsername] = useState('')
     const [enteredAge, setEnteredAge] = useState('')
 
     const addUserHandler = (event) => {
         event.preventDefault();
-        if (enteredUsername.trim().length === 0 || enteredAge.trim().lenght === 0 ) {
+
+        // makes sure neither input is empty
+        if (enteredUsername.trim().length === 0 || enteredAge.trim().length === 0 ) {
             return
         }
 
@@ -18,7 +20,8 @@ const AddUser = () => {
         if (+enteredAge < 1) {
             return
         }
-        console.log(`Username: ${enteredUsername}, Age: ${enteredAge}`)
+        props.onAddUser(enteredUsername, enteredAge)
+        // resets inputs to empty after user submits data
         setEnteredUsername('')
         setEnteredAge('')
     }
